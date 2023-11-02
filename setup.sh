@@ -46,7 +46,7 @@ install_homebrew() {
 
 # Function to install Node and Python3 using Homebrew
 install_node_python3() {
-  brew install node python3
+  brew install node python3 lua
 }
 
 # Function to install Packer.vim and plugins
@@ -56,11 +56,8 @@ install_packer_plugins() {
     exit 1
   fi
 
-  # Check Neovim version
-  NVIM_VERSION=$(nvim --version | head -n 1 | cut -d " " -f 2)
-  if [[ $(echo -e "0.5.0\n$NVIM_VERSION" | sort -V | head -n1) = "0.5.0" ]]; then
-    echo "Neovim version is sufficient for Packer.vim"
-  else
+  if ! command_exists nvim; then
+    echo "Neovim is not installed. Installing..."
     brew install neovim
   fi
 
