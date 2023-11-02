@@ -1,75 +1,80 @@
+import os
 import subprocess
 import sys
 
-def run_command(command, print_output=False):
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, text=True, bufsize=1, universal_newlines=True)
-    
-    while True:
-        output = process.stdout.readline()
-        if output == '' and process.poll() is not None:
-            break
-        if output:
-            print(output.strip(), flush=True)
-    
-    rc = process.poll()
-    return rc
+def run_command(command, allow_input=False, capture_output=False):
+    if allow_input:
+        process = subprocess.run(command, shell=True)
+    elif capture_output:
+        process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
+        if process.returncode != 0:
+            print(f"Error: {process.stderr}")
+            sys.exit(process.returncode)
+        return process.stdout.strip()
+    else:
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            print(f"Error: {stderr}")
+            sys.exit(process.returncode)
+        return stdout.strip()
+
+def is_installed(command):
+    return subprocess.run(["command", "-v", command], stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode == 0
 
 def install_homebrew():
     if not is_installed("brew"):
         print("Installing Homebrew...")
-        exit_code = run_command('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"', print_output=True)
-        if exit_code != 0:
-            print("Homebrew installation failed")
-            sys.exit(exit_code)
+        run_command('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"', allow_input=True)
         print("Homebrew installed")
     else:
-        print("Homebrew is already installed")
+        print("Homebrew is already installed. Updating...")
+        run_command("brew update")
 
-def is_installed(command):
-    try:
-        subprocess.check_output(["which", command])
-        return True
-    except subprocess.CalledProcessError:
-        return False
+    # Add Homebrew to PATH
+    homebrew_init = 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+    with open(os.path.expanduser('~/.bashrc'), 'a') as bashrc:
+        bashrc.write(f'\n{homebrew_init}\n')
+    os.system(homebrew_init)
+    print("Added Homebrew to PATH")
 
-def install_node():
-    if not is_installed("node"):
-        print("Installing Node.js...")
-        run_command("brew install node")
-        print("Node.js installed")
-    else:
-        print("Node.js is already installed")
+    # Install Homebrew's dependencies
+    if sys.platform.startswith('linux'):
+        print("Installing Homebrew dependencies...")
+        run_command('sudo apt-get install build-essential', allow_input=True)
+        print("Installed Homebrew dependencies")
 
-def check_neovim_version():
-    nvim_version = run_command("nvim --version | head -n 1 | awk '{print $2}'")
-    if nvim_version < "0.5.0":
-        print("Neovim version is outdated, updating...")
-        run_command("brew install neovim")
-        print("Neovim updated")
-    else:
-        print("Neovim version is up to date")
+def install_neovim():
+    print("Installing or updating Neovim...")
+    run_command("brew install neovim || brew upgrade neovim")
+    print("Neovim installed/updated")
 
 def install_packer():
-    if not is_installed("nvim"):
-        print("Error: Neovim is not installed")
-        sys.exit(1)
-
-    packer_path = "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
-    if not run_command(f"ls {packer_path}"):
-        print("Installing Packer.nvim...")
-        run_command("git clone --depth 1 https://github.com/wbthomason/packer.nvim " + packer_path)
-        print("Packer.nvim installed")
+    packer_dir = os.path.expanduser("~/.local/share/nvim/site/pack/packer/start/packer.nvim")
+    if not os.path.isdir(packer_dir):
+        print("Installing Packer...")
+        run_command("git clone --depth 1 https://github.com/wbthomason/packer.nvim " + packer_dir)
+        print("Packer installed")
     else:
-        print("Packer.nvim is already installed")
+        print("Packer is already installed")
 
-    # Compile packer and install plugins
-    print("Compiling packer and installing plugins...")
+    print("Compiling Packer and installing plugins...")
     run_command("nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'")
     print("Plugins installed")
 
-if __name__ == "__main__":
+def main():
+    if not is_installed("python3"):
+        print("Python 3 is not installed. Please install Python 3 to continue.")
+        sys.exit(1)
+
+    if not is_installed("curl"):
+        print("Curl is not installed. Please install curl to continue.")
+        sys.exit(1)
+
     install_homebrew()
-    install_node()
-    check_neovim_version()
+    install_neovim()
     install_packer()
+
+if __name__ == "__main__":
+    main()
 
