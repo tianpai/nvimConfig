@@ -5,6 +5,23 @@ command_exists() {
   which "$1" &>/dev/null
 }
 
+# Function to move ./nvim/ to ~/.config/
+move_nvim_config() {
+  if [ -d "./nvim" ]; then
+    if [ -d "$HOME/.config/nvim" ]; then
+      read -p "~/.config/nvim already exists. Do you want to overwrite it? (y/n) " choice
+      case "$choice" in 
+        y|Y ) rm -rf "$HOME/.config/nvim";;
+        n|N ) echo "Aborting script."; exit 1;;
+        * ) echo "Invalid choice. Aborting script."; exit 1;;
+      esac
+    fi
+    mv ./nvim "$HOME/.config/"
+  else
+    echo "./nvim directory not found. Continuing..."
+  fi
+}
+
 # Function to install curl
 install_curl() {
   if [[ -f /etc/fedora-release ]]; then
@@ -59,6 +76,8 @@ install_packer_plugins() {
 
 # Main script
 main() {
+  move_nvim_config
+
   if ! command_exists curl; then
     echo "Curl is not installed. Installing..."
     install_curl
