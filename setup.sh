@@ -12,10 +12,9 @@ get_distro() {
   fi
 }
 
-
 # Function to check and install python3
 check_install_python3() {
-  if ! which python3 > /dev/null 2>&1; then
+  if ! which python3 >/dev/null 2>&1; then
     echo "Python3 could not be found, installing..."
     case $1 in
       ubuntu|debian)
@@ -38,10 +37,9 @@ check_install_python3() {
   fi
 }
 
-
 # Function to check and install curl
 check_install_curl() {
-  if ! command -v curl &> /dev/null; then
+  if ! which curl >/dev/null 2>&1; then
     echo "Curl could not be found, installing..."
     case $1 in
       ubuntu|debian)
