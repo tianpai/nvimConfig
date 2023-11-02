@@ -16,9 +16,14 @@ move_nvim_config() {
         * ) echo "Invalid choice. Aborting script."; exit 1;;
       esac
     fi
-    mv ./nvim "$HOME/.config/"
+    cp -r ./nvim "$HOME/.config/"
   else
-    echo "./nvim directory not found. Continuing..."
+    echo "./nvim directory not found."
+    echo "Cloning from Tianpai's nvimConfig repository..." 
+    echo "git clone https://github.com/tianpai/nvimConfig.git"
+    git clone https://github.com/tianpai/nvimConfig.git
+    mv ./nvimConfig/nvim/ "$HOME/.config/"
+    rm -rf ./nvimConfig
   fi
 }
 
