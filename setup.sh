@@ -12,10 +12,10 @@ get_distro() {
   fi
 }
 
+
 # Function to check and install python3
 check_install_python3() {
-  if ! command -v python3 &> /dev/null
-  then
+  if ! which python3 > /dev/null 2>&1; then
     echo "Python3 could not be found, installing..."
     case $1 in
       ubuntu|debian)
@@ -29,7 +29,7 @@ check_install_python3() {
         sudo pacman -S --noconfirm python
         ;;
       *)
-        echo "Unsupported distribution"
+        echo "Unsupported or unknown distribution"
         exit 1
         ;;
     esac
@@ -38,10 +38,10 @@ check_install_python3() {
   fi
 }
 
+
 # Function to check and install curl
 check_install_curl() {
-  if ! command -v curl &> /dev/null
-  then
+  if ! command -v curl &> /dev/null; then
     echo "Curl could not be found, installing..."
     case $1 in
       ubuntu|debian)
@@ -55,7 +55,7 @@ check_install_curl() {
         sudo pacman -S --noconfirm curl
         ;;
       *)
-        echo "Unsupported distribution"
+        echo "Unsupported or unknown distribution"
         exit 1
         ;;
     esac
@@ -74,5 +74,10 @@ check_install_python3 $distro
 check_install_curl $distro
 
 # Run the Python script
-python3 setup.py
+if [ -f setup.py ]; then
+  python3 setup.py
+else
+  echo "The Python script 'setup.py' was not found in the current directory."
+  exit 1
+fi
 
