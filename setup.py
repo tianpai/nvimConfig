@@ -1,13 +1,29 @@
 import subprocess
 import sys
 
-def run_command(command):
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    stdout, stderr = process.communicate()
-    if process.returncode != 0:
-        print(f"Error: {stderr.decode('utf-8')}")
-        sys.exit(process.returncode)
-    return stdout.decode('utf-8').strip()
+def run_command(command, print_output=False):
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, text=True, bufsize=1, universal_newlines=True)
+    
+    while True:
+        output = process.stdout.readline()
+        if output == '' and process.poll() is not None:
+            break
+        if output:
+            print(output.strip(), flush=True)
+    
+    rc = process.poll()
+    return rc
+
+def install_homebrew():
+    if not is_installed("brew"):
+        print("Installing Homebrew...")
+        exit_code = run_command('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"', print_output=True)
+        if exit_code != 0:
+            print("Homebrew installation failed")
+            sys.exit(exit_code)
+        print("Homebrew installed")
+    else:
+        print("Homebrew is already installed")
 
 def is_installed(command):
     try:
@@ -15,14 +31,6 @@ def is_installed(command):
         return True
     except subprocess.CalledProcessError:
         return False
-
-def install_homebrew():
-    if not is_installed("brew"):
-        print("Installing Homebrew...")
-        run_command('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"')
-        print("Homebrew installed")
-    else:
-        print("Homebrew is already installed")
 
 def install_node():
     if not is_installed("node"):
