@@ -30,9 +30,6 @@ def install_homebrew():
     if not is_installed("brew"):
         print("Installing Homebrew...")
         run_command('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"', allow_input=True)
-        if not is_installed("brew"):
-            print("Error: Homebrew is not installed")
-            sys.exit(1)
     else:
         print("Homebrew is already installed. Updating...")
         run_command("brew update")
