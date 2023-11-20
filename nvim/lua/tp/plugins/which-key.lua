@@ -103,6 +103,7 @@ wk.setup({
 })
 
 wk.register({
+
 	["<leader>P"] = { name = "PACKER" },
 	["<leader>Ps"] = { "<cmd>PackerSync<cr>", "Packer Sync" },
 	["<leader>Pu"] = { "<cmd>PackerUpdate<cr>", "Packer Update" },
@@ -120,10 +121,13 @@ wk.register({
 	["<leader>fS"] = { "<cmd>Telescope live_grep<cr>", "String in Current Directory" },
 	["<leader>fs"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "String in Current Buffer" },
 	["<leader>fc"] = { "<cmd>Telescope grep_string<cr>", "String under Cursor in Current Directory" },
-	["<leader>fb"] = { "<cmd>Telescope buffers<cr>", "List Buffers" },
 	["<leader>fe"] = { "<cmd>NvimTreeToggle<cr>", "Toggle File Tree" },
 	["<leader>ft"] = { "<cmd>NvimTreeFindFile<cr>", "Find in File Explorer" },
 	--     ____ ___ _____
+	["<leader>b"] = { name = "BUFFER" },
+	["<leader>bb"] = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+	["<leader>bn"] = { "<cmd>bn<cr>", "Next Buffer" },
+	["<leader>bp"] = { "<cmd>bp<cr>", "Previous Buffer" },
 	--    / ___|_ _|_   _|
 	--   | |  _ | |  | |
 	--   | |_| || |  | |
@@ -147,8 +151,8 @@ wk.register({
 	--      \_/\_/  |_|_| |_|\__,_|\___/ \_/\_/
 	--
 	["<leader>w"] = { name = "WINDOW" },
-	["<leader>wsh"] = { "<cmd>split<cr>", "Split Horizontally" },
-	["<leader>wsv"] = { "<cmd>vsplit<cr>", "Split Vertically" },
+	["<leader>wh"] = { "<cmd>split<cr>", "Split Horizontally" },
+	["<leader>wv"] = { "<cmd>vsplit<cr>", "Split Vertically" },
 	--    _____  _    ____
 	--   |_   _|/ \  | __ )
 	--     | | / _ \ |  _ \
@@ -172,7 +176,12 @@ wk.register({
 	["<leader>uc"] = { "<cmd>Telescope commands<cr>", "Show All Commands" },
 	["<leader>uch"] = { "<cmd>Telescope commands_history<cr>", "Show All Commands History" },
 	["<leader>ur"] = { "<cmd>Telescope registers<cr>", "Show Clipboard" },
-	--    _   _ ___ ____  ____  _____ _   _
+
+	["<leader>T"] = { name = "Trouble" },
+	["<leader>Tt"] = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
+	["<leader>Td"] = { "<cmd>TroubleToggle document_diagonistics<cr>", "Document Diagonistics" },
+	["<leader>Tw"] = { "<cmd>TroubleToggle lsp_workspace_diagonistics<cr>", "Workspace Diagonistics" },
+
 	--   | | | |_ _|  _ \|  _ \| ____| \ | |
 	--   | |_| || || | | | | | |  _| |  \| |
 	--   |  _  || || |_| | |_| | |___| |\  |

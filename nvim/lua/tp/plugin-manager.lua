@@ -69,7 +69,14 @@ return packer.startup(function(use)
 	--
 	use("nvim-lualine/lualine.nvim")
 	use("nvim-tree/nvim-tree.lua")
+	use({
+		"gelguy/wilder.nvim",
+		config = function()
+			-- config goes here
+		end,
+	})
 	use("goolord/alpha-nvim")
+	use("petertriho/nvim-scrollbar")
 	--    _   _
 	--   | |_| |__   ___ _ __ ___   ___
 	--   | __| '_ \ / _ \ '_ ` _ \ / _ \
@@ -136,6 +143,7 @@ return packer.startup(function(use)
 	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
 	use({ "nvim-telescope/telescope-ui-select.nvim" }) -- for showing lsp code actions
 	use("nvim-orgmode/orgmode") -- just like EMACS org-mode but for neovim
+	use("folke/trouble.nvim") -- for showing diagnostics, references, etc
 
 	-- just don't remove this
 	if packer_bootstrap then
