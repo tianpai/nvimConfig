@@ -1,4 +1,8 @@
-
-.DS_Store
-nvim/pack/github/start/copilot.vim/
-.DS_Store
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
