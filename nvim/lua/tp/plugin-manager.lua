@@ -83,6 +83,7 @@ return packer.startup(function(use)
 	--   | |_| | | |  __/ | | | | |  __/
 	--    \__|_| |_|\___|_| |_| |_|\___|
 	--
+	use({ "catppuccin/nvim", as = "catppuccin" })
 	use("Shatur/neovim-ayu")
 
 	--    _     ____  ____
@@ -113,7 +114,7 @@ return packer.startup(function(use)
 	-- configuring lsp servers
 	use("neovim/nvim-lspconfig") -- easily configure language servers
 	use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
-	use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server
+	use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript servermanager
 	use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
 	use({
 		"smjonas/inc-rename.nvim",
@@ -142,9 +143,15 @@ return packer.startup(function(use)
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
 	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
 	use({ "nvim-telescope/telescope-ui-select.nvim" }) -- for showing lsp code actions
+	use({
+		"nvim-telescope/telescope-file-browser.nvim",
+		requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+	})
+	use("nvim-telescope/telescope-frecency.nvim")
 	use("nvim-orgmode/orgmode") -- just like EMACS org-mode but for neovim
 	use("folke/trouble.nvim") -- for showing diagnostics, references, etc
-
+	use("norcalli/nvim-colorizer.lua") -- for highlighting colors
+	use("akinsho/toggleterm.nvim")
 	-- just don't remove this
 	if packer_bootstrap then
 		require("packer").sync()

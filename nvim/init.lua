@@ -1,21 +1,20 @@
---    _____ _   _ _____ _______
---   |_   _| \ | |_   _|__   __|
---     | | |  \| | | |    | |
---     | | | . ` | | |    | |
---    _| |_| |\  |_| |_   | |
---   |_____|_| \_|_____|  |_|
---
+--    ___ _   _ ___ _____
+--   |_ _| \ | |_ _|_   _|
+--    | ||  \| || |  | |
+--    | || |\  || |  | |
+--   |___|_| \_|___| |_|
 --
 
-require("tp.plugin-manager") -- must be the first
+-- must be the first
+require("tp.plugin-manager")
 
+-- core setting and options
 require("tp.core.options")
 require("tp.core.theme")
 require("tp.core.keymap")
--- require("tp.core.plugin-keymap") -- Moved to tp.plugins.which-key
 
+-- plugins
 require("tp.plugins.autopairs")
-require("tp.plugins.alpha-nvim")
 require("tp.plugins.gitsign")
 require("tp.plugins.lualine")
 require("tp.plugins.nvim-cmp")
@@ -24,11 +23,19 @@ require("tp.plugins.scroller")
 require("tp.plugins.telescope")
 require("tp.plugins.treesitter")
 require("tp.plugins.trouble")
---require("tp.plugins.vimtex")
+require("tp.plugins.toggleterm")
 require("tp.plugins.which-key")
 require("tp.plugins.wilder")
 require("tp.plugins.orgmode")
 
+-- LSP
 require("tp.plugins.lsp.lspconfig")
 require("tp.plugins.lsp.mason")
 require("tp.plugins.lsp.null-ls")
+
+-- themes
+require("tp.plugins.themes.catppuccin")
+require("tp.plugins.themes.nvim-colorizer")
+
+-- alpha dashboard/welcome screen
+require("tp.plugins.alpha.alpha-nvim")

@@ -5,8 +5,7 @@
 --   \__|_| |_|\___|_| |_| |_|\___|
 --
 
-local status, _ = pcall(vim.cmd, "colorscheme ayu")
-if not status then
-	print("Colorscheme not found!") -- print error if colorscheme not installed
-	return
-end
+-- vim.cmd("colorscheme ayu")
+-- vim.cmd("colorscheme ayu-dark")
+
+vim.cmd.colorscheme("catppuccin-mocha")

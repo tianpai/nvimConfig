@@ -36,6 +36,6 @@ local bubbles_theme = {
 -- configure lualine with modified theme
 lualine.setup({
 	options = {
-		theme = "palenight",
+		theme = "catppuccin",
 	},
 })
