@@ -13,7 +13,7 @@ mv ~/.cache/nvim{,.bak}
 - clone the repository
 
 ```bash
-git clone https://github.com/tianpaiz/nvimConfig ~/.config/nvim
+git clone https://github.com/tianpai/nvimConfig ~/.config/nvim
 ```
 
 - remove .git file
