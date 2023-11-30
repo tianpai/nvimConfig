@@ -7,7 +7,7 @@ return {
     local dashboard = require("alpha.themes.dashboard")
 
     -- customized anime headers
-    local headers = require("lua.pics")
+    local headers = require("pics")
     local logos, len = headers.get_all()
     print(len)
 
