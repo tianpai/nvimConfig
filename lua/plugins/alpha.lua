@@ -14,7 +14,7 @@ return {
     dashboard.section.header.val = logos[os.time() % len + 1]
     -- stylua: ignore
     dashboard.section.buttons.val = {
-      dashboard.button("f", " " .. " Find file",       "<cmd> Telescope find_files <cr>"),
+      dashboard.button("f", " " .. " Find file",       "<cmd> Telescope find_files <cr>"),
       dashboard.button("r", " " .. " Recent files",    "<cmd> Telescope oldfiles <cr>"),
       dashboard.button("g", " " .. " Find text",       "<cmd> Telescope live_grep <cr>"),
       dashboard.button("c", " " .. " Config",          "<cmd> lua require('lazyvim.util').telescope.config_files()() <cr>"),
@@ -29,7 +29,7 @@ return {
     dashboard.section.header.opts.hl = "AlphaHeader"
     dashboard.section.buttons.opts.hl = "AlphaButtons"
     dashboard.section.footer.opts.hl = "AlphaFooter"
-    dashboard.opts.layout[1].val = 8
+    dashboard.opts.layout[1].val = 2 -- padding above header
     return dashboard
   end,
   config = function(_, dashboard)
