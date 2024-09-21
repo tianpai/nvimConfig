@@ -14,12 +14,9 @@ return {
       -- vertical view
       layout_strategy = "vertical",
       layout_config = {
-        width = vim.o.columns,
-        height = vim.o.lines,
-        prompt_position = "bottom",
-        preview_height = 0.6,
+        width = 0.95,
       },
-      preview = { filesize_limit = 0.3 }, -- MB
+      preview = { filesize_limit = 0.2 }, -- MB
     },
   },
 }
