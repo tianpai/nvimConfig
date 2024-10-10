@@ -112,6 +112,14 @@ return {
     end,
   },
 
+  {
+    "bettervim/yugen.nvim",
+    lazy = false,
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme("yugen")
+    end,
+  },
   -- config LazyVim to use catppuccin theme
   {
     "LazyVim/LazyVim",
