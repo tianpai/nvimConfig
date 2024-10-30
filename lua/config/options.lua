@@ -4,13 +4,13 @@
 --
 
 local opt = vim.opt
--- line number
-opt.relativenumber = true
+-- line numbers
+opt.relativenumber = false -- confusing when explaining code to someone
 opt.number = true
 
 -- tabs and indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
+opt.tabstop = 8
+opt.shiftwidth = 8
 opt.expandtab = true
 opt.autoindent = true
 opt.scrolloff = 10
@@ -21,6 +21,7 @@ opt.wrap = false
 -- so that _ is not considered
 -- as a word boundary
 opt.iskeyword:append("_")
+opt.iskeyword:append("-")
 
 -- search settings
 opt.ignorecase = true
