@@ -102,30 +102,19 @@ return {
   },
 
   {
-    "slugbyte/lackluster.nvim",
+    "Mofiqul/vscode.nvim",
     lazy = false,
     priority = 1000,
     init = function()
-      vim.cmd.colorscheme("lackluster")
-      -- vim.cmd.colorscheme("lackluster-hack") -- my favorite
-      -- vim.cmd.colorscheme("lackluster-mint")
+      vim.cmd.colorscheme("vscode")
     end,
   },
-
-  {
-    "bettervim/yugen.nvim",
-    lazy = false,
-    priority = 1000,
-    init = function()
-      vim.cmd.colorscheme("yugen")
-    end,
-  },
-  -- config LazyVim to use catppuccin theme
+  -- config LazyVim to a colorscheme
   {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "catppuccin",
-      colorscheme = "lackluster-hack",
+      colorscheme = "vscode",
     },
   },
 
